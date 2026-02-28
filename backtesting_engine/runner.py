@@ -1,9 +1,9 @@
 import pandas as pd
 import yaml
 
-from strategies.moving_average import MovingAverageStrategy
-from engine.backtest import run_backtest
-from metrics.performance import sharpe_ratio, max_drawdown
+from backtesting_engine.strategies.moving_average import MovingAverageStrategy
+from backtesting_engine.engine.backtest import run_backtest
+from backtesting_engine.metrics.performance import sharpe_ratio, max_drawdown
 
 
 def load_config(path="config.yaml"):
@@ -11,8 +11,8 @@ def load_config(path="config.yaml"):
         return yaml.safe_load(f)
 
 
-def main():
-    config = load_config()
+def run_experiment(config_path: str = "config.yaml"):
+    config = load_config(config_path)
 
     prices = pd.read_csv("data/sample_prices.csv", parse_dates=["date"])
     prices = prices.set_index("date")
@@ -34,4 +34,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    run_experiment()
